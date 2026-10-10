@@ -76,5 +76,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Agenda_Medica.BL\Agenda_Medica.BL.csproj">
+      <Project>{be30fcff-7dd3-407c-8dd6-89cf7cf83af6}</Project>
+      <Name>Agenda_Medica.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="Agenda_Medica.Entities\Agenda_Medica.Entities.csproj">
+      <Project>{26d3f730-77ca-459d-95b9-24a257003823}</Project>
+      <Name>Agenda_Medica.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
