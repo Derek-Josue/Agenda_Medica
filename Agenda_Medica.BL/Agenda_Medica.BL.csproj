@@ -41,8 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="MedicoBL.cs" />
+    <Compile Include="PacienteBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReglasCita.cs" />
+    <Compile Include="ResultadoBL.cs" />
+    <Compile Include="Validaciones.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Agenda_Medica.DAL\Agenda_Medica.DAL.csproj">
