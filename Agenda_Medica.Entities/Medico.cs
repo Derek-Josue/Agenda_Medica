@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Agenda_Medica.Entities
+﻿namespace Agenda_Medica.Entities
 {
-    internal class Medico
+    public class Medico
     {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Apellidos { get; set; }
+        public string Telefono { get; set; }
+        public string Correo { get; set; }
+        public int IdEspecialidad { get; set; }
+        public bool Activo { get; set; }
+
+        public string NombreCompleto
+        {
+            get { return Nombre + " " + Apellidos; }
+        }
     }
 }
