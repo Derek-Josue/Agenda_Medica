@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
 namespace Agenda_Medica.DAL
 {
     public class Conexion
     {
-        // Cadena de conexión hacia tu base de datos local en MySQL Workbench
-        private static string cadenaConexion = "Server=localhost;Database=agenda_medica;Uid=root;Pwd=tNx92mlAw.;";
-
+        private static string cadenaConexion =
+    "Server=localhost;" +
+    "Port=3306;" +
+    "Database=agenda_medica;" +
+    "Uid=agenda_user;" +
+    "Pwd=" + Environment.GetEnvironmentVariable("AGENDA_DB_PASSWORD") + ";";
         public static MySqlConnection ObtenerConexion()
         {
             try
