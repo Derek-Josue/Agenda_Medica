@@ -1,4 +1,7 @@
-﻿namespace Menu_Principall
+﻿using System.Windows.Forms;
+using System;
+using System.Drawing;
+namespace Menu_Principall
 {
     partial class Form1
     {
