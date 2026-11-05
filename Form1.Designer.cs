@@ -31,51 +31,56 @@ namespace Menu_Principall
         /// </summary>
         private void InitializeComponent()
         {
-            lblTitulo = new Label();
-            btnPacientes = new Button();
-            btnSalir = new Button();
-            SuspendLayout();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.btnPacientes = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
             // lblTitulo
             // 
-            lblTitulo.AutoSize = true;
-            lblTitulo.Location = new Point(25, 19);
-            lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(227, 20);
-            lblTitulo.TabIndex = 0;
-            lblTitulo.Text = "Sistema de Registro de Pacientes";
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Location = new System.Drawing.Point(25, 15);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(211, 16);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "Sistema de Registro de Pacientes";
             // 
             // btnPacientes
             // 
-            btnPacientes.Location = new Point(25, 60);
-            btnPacientes.Name = "btnPacientes";
-            btnPacientes.Size = new Size(157, 29);
-            btnPacientes.TabIndex = 1;
-            btnPacientes.Text = "Gestion de Pacientes";
-            btnPacientes.UseVisualStyleBackColor = true;
-            btnPacientes.Click += btnPacientes_Click;
+            this.btnPacientes.Location = new System.Drawing.Point(25, 48);
+            this.btnPacientes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPacientes.Name = "btnPacientes";
+            this.btnPacientes.Size = new System.Drawing.Size(157, 23);
+            this.btnPacientes.TabIndex = 1;
+            this.btnPacientes.Text = "Gestion de Pacientes";
+            this.btnPacientes.UseVisualStyleBackColor = true;
+            this.btnPacientes.Click += new System.EventHandler(this.btnPacientes_Click_1);
             // 
             // btnSalir
             // 
-            btnSalir.Location = new Point(25, 95);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(94, 29);
-            btnSalir.TabIndex = 2;
-            btnSalir.Text = "Salir";
-            btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Location = new System.Drawing.Point(25, 76);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(94, 23);
+            this.btnSalir.TabIndex = 2;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(btnSalir);
-            Controls.Add(btnPacientes);
-            Controls.Add(lblTitulo);
-            Name = "Form1";
-            Text = "Form1";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.btnSalir);
+            this.Controls.Add(this.btnPacientes);
+            this.Controls.Add(this.lblTitulo);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

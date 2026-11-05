@@ -6,11 +6,12 @@ namespace Agenda_Medica.DAL
     public class Conexion
     {
         private static string cadenaConexion =
-    "Server=localhost;" +
-    "Port=3306;" +
-    "Database=agenda_medica;" +
-    "Uid=agenda_user;" +
-    "Pwd=" + Environment.GetEnvironmentVariable("AGENDA_DB_PASSWORD") + ";";
+            "Server=localhost;" +
+            "Port=3306;" +
+            "Database=agenda_medica;" +
+            "Uid=root;" +
+            "Pwd=tNx92mlAw.;";
+
         public static MySqlConnection ObtenerConexion()
         {
             try
