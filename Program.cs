@@ -11,9 +11,9 @@ namespace Menu_Principall
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
+            Application.Run(new Form1());
             //Application.Run(new FormPacientes());
-            Application.Run(new FormPrueba()); // Cambia a FormPrueba para probar la conexión
+            //Application.Run(new FormPrueba()); // Cambia a FormPrueba para probar la conexión
         }
     }
 }

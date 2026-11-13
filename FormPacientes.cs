@@ -1,48 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Menu_Principall
 {
     public partial class FormPacientes : Form
     {
-        private List<Paciente> listaPacientes = new List<Paciente>();
-        private int indiceEdicion = -1;
+        private const string ConnectionString =
+            "Server=localhost;" +
+            "Port=3306;" +
+            "Database=agenda_medica;" +
+            "Uid=root;" +
+            "Pwd=tNx92mlAw.;";
+
+        // id_paciente del registro que se está editando (0 = paciente nuevo)
+        private int idPacienteEdicion = 0;
 
         public FormPacientes()
         {
             InitializeComponent();
         }
 
-        public class Paciente
+        private void FormPacientes_Load(object sender, EventArgs e)
         {
-            public string ID { get; set; }
-            public string Nombre { get; set; }
-            public string Apellido { get; set; }
-            public string Telefono { get; set; }
-            public string Direccion { get; set; }
+            if (cmbGenero.Items.Count == 0)
+                cmbGenero.Items.AddRange(new object[] { "Masculino", "Femenino", "Otro" });
+
+            if (cmbTipoSangre.Items.Count == 0)
+                cmbTipoSangre.Items.AddRange(new object[] { "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" });
+
+            cmbGenero.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTipoSangre.DropDownStyle = ComboBoxStyle.DropDownList;
+            dtpFechaNacimiento.MaxDate = DateTime.Today;
         }
 
         private void LimpiarCampos()
         {
-            txtID.Clear();
+            txtID.Clear();          // txtID = cédula
             txtNombre.Clear();
             txtApellido.Clear();
             txtTelefono.Clear();
             txtDireccion.Clear();
-            indiceEdicion = -1;
+            cmbGenero.SelectedIndex = -1;
+            cmbTipoSangre.SelectedIndex = -1;
+            dtpFechaNacimiento.Value = DateTime.Today;
+            idPacienteEdicion = 0;
             txtID.Enabled = true;
+            txtID.Focus();
         }
 
         private bool ValidarCampos()
         {
             if (string.IsNullOrWhiteSpace(txtID.Text))
             {
-                MessageBox.Show("Escriba el ID del paciente", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Escriba la cédula del paciente", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtID.Focus();
                 return false;
             }
@@ -54,161 +65,192 @@ namespace Menu_Principall
             }
             if (string.IsNullOrWhiteSpace(txtApellido.Text))
             {
-                MessageBox.Show("Escriba el apellido", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Escriba los apellidos", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtApellido.Focus();
+                return false;
+            }
+            if (cmbGenero.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione el género", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbGenero.Focus();
+                return false;
+            }
+            if (cmbTipoSangre.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione el tipo de sangre", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbTipoSangre.Focus();
                 return false;
             }
             return true;
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private static void SeleccionarItem(ComboBox combo, string valor)
+        {
+            int i = combo.FindStringExact(valor);
+            combo.SelectedIndex = i;
+        }
+
+        // ---------------------------------------------------------------
+        // GUARDAR (INSERT o UPDATE)
+        // ---------------------------------------------------------------
+
+        private void btnGuardar_Click_1(object sender, EventArgs e)
         {
             if (!ValidarCampos()) return;
 
-            if (indiceEdicion >= 0)
-            {
-                listaPacientes[indiceEdicion].ID = txtID.Text;
-                listaPacientes[indiceEdicion].Nombre = txtNombre.Text;
-                listaPacientes[indiceEdicion].Apellido = txtApellido.Text;
-                listaPacientes[indiceEdicion].Telefono = txtTelefono.Text;
-                listaPacientes[indiceEdicion].Direccion = txtDireccion.Text;
-                MessageBox.Show("Paciente actualizado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                Paciente nuevo = new Paciente
-                {
-                    ID = txtID.Text,
-                    Nombre = txtNombre.Text,
-                    Apellido = txtApellido.Text,
-                    Telefono = txtTelefono.Text,
-                    Direccion = txtDireccion.Text
-                };
-                listaPacientes.Add(nuevo);
-                MessageBox.Show("Paciente guardado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            LimpiarCampos();
-        }
+            bool esEdicion = idPacienteEdicion > 0;
 
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
+            // CORRECCIÓN: Se cambió 'pacientes' por 'paciente' (nombre real de la tabla)
+            string sql = esEdicion
+                ? @"UPDATE paciente
+                       SET cedula = @cedula, nombre = @nombre, apellidos = @apellidos,
+                           fecha_nacimiento = @fecha, genero = @genero, telefono = @telefono,
+                           direccion = @direccion, tipo_sangre = @sangre
+                     WHERE id_paciente = @id"
+                : @"INSERT INTO paciente
+                       (cedula, nombre, apellidos, fecha_nacimiento, genero, telefono, direccion, tipo_sangre)
+                    VALUES
+                       (@cedula, @nombre, @apellidos, @fecha, @genero, @telefono, @direccion, @sangre)";
+
+            try
             {
-                MessageBox.Show("Escriba un ID para buscar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            foreach (Paciente p in listaPacientes)
-            {
-                if (p.ID == txtID.Text)
+                using (var conn = new MySqlConnection(ConnectionString))
+                using (var cmd = new MySqlCommand(sql, conn))
                 {
-                    txtNombre.Text = p.Nombre;
-                    txtApellido.Text = p.Apellido;
-                    txtTelefono.Text = p.Telefono;
-                    txtDireccion.Text = p.Direccion;
-                    indiceEdicion = listaPacientes.IndexOf(p);
-                    txtID.Enabled = false;
-                    return;
+                    cmd.Parameters.AddWithValue("@cedula", txtID.Text.Trim());
+                    cmd.Parameters.AddWithValue("@nombre", txtNombre.Text.Trim());
+                    cmd.Parameters.AddWithValue("@apellidos", txtApellido.Text.Trim());
+                    cmd.Parameters.AddWithValue("@fecha", dtpFechaNacimiento.Value.Date);
+                    cmd.Parameters.AddWithValue("@genero", cmbGenero.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@telefono", txtTelefono.Text.Trim());
+                    cmd.Parameters.AddWithValue("@direccion", txtDireccion.Text.Trim());
+                    cmd.Parameters.AddWithValue("@sangre", cmbTipoSangre.SelectedItem.ToString());
+
+                    if (esEdicion)
+                        cmd.Parameters.AddWithValue("@id", idPacienteEdicion);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
-            }
-            MessageBox.Show("Paciente no encontrado", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
 
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
+                MessageBox.Show(
+                    esEdicion ? "Paciente actualizado correctamente" : "Paciente guardado correctamente",
+                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarCampos();
+            }
+            catch (MySqlException ex) when (ex.Number == 1062)
             {
-                MessageBox.Show("Primero busque un paciente para editar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                MessageBox.Show("Ya existe un paciente con esa cédula", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            MessageBox.Show("Modifique los datos y presione GUARDAR", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
+            catch (MySqlException ex)
             {
-                MessageBox.Show("Busque un paciente primero", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                MessageBox.Show("Error de base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            foreach (Paciente p in listaPacientes)
-            {
-                if (p.ID == txtID.Text)
-                {
-                    DialogResult confirmar = MessageBox.Show("¿Eliminar este paciente?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (confirmar == DialogResult.Yes)
-                    {
-                        listaPacientes.Remove(p);
-                        MessageBox.Show("Paciente eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LimpiarCampos();
-                    }
-                    return;
-                }
-            }
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            LimpiarCampos();
-        }
-
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void btnBusacar_Click(object sender, EventArgs e)
         {
+             // ---------------------------------------------------------------
+             // BUSCAR por cédula
+             // ---------------------------------------------------------------
+        
             if (string.IsNullOrWhiteSpace(txtID.Text))
             {
-                MessageBox.Show("Escriba un ID para buscar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Escriba una cédula para buscar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            foreach (Paciente p in listaPacientes)
+
+            // CORRECCIÓN: Se cambió 'pacientes' por 'paciente'
+            const string sql = @"SELECT id_paciente, cedula, nombre, apellidos, fecha_nacimiento,
+                                        genero, telefono, direccion, tipo_sangre
+                                   FROM paciente
+                                  WHERE cedula = @cedula
+                                  LIMIT 1";
+            try
             {
-                if (p.ID == txtID.Text)
+                using (var conn = new MySqlConnection(ConnectionString))
+                using (var cmd = new MySqlCommand(sql, conn))
                 {
-                    txtNombre.Text = p.Nombre;
-                    txtApellido.Text = p.Apellido;
-                    txtTelefono.Text = p.Telefono;
-                    txtDireccion.Text = p.Direccion;
-                    indiceEdicion = listaPacientes.IndexOf(p);
-                    txtID.Enabled = false;
-                    return;
+                    cmd.Parameters.AddWithValue("@cedula", txtID.Text.Trim());
+                    conn.Open();
+
+                    using (var rd = cmd.ExecuteReader())
+                    {
+                        if (!rd.Read())
+                        {
+                            MessageBox.Show("Paciente no encontrado", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
+                        idPacienteEdicion = rd.GetInt32("id_paciente");
+                        txtID.Text = rd.GetString("cedula");
+                        txtNombre.Text = rd.GetString("nombre");
+                        txtApellido.Text = rd.GetString("apellidos");
+                        dtpFechaNacimiento.Value = rd.IsDBNull(rd.GetOrdinal("fecha_nacimiento"))
+                            ? DateTime.Today
+                            : rd.GetDateTime("fecha_nacimiento");
+                        SeleccionarItem(cmbGenero, rd.IsDBNull(rd.GetOrdinal("genero")) ? "" : rd.GetString("genero"));
+                        txtTelefono.Text = rd.IsDBNull(rd.GetOrdinal("telefono")) ? "" : rd.GetString("telefono");
+                        txtDireccion.Text = rd.IsDBNull(rd.GetOrdinal("direccion")) ? "" : rd.GetString("direccion");
+                        SeleccionarItem(cmbTipoSangre, rd.IsDBNull(rd.GetOrdinal("tipo_sangre")) ? "" : rd.GetString("tipo_sangre"));
+
+                        txtID.Enabled = false;
+                    }
                 }
             }
-            MessageBox.Show("Paciente no encontrado", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error de base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        
         }
 
         private void btnEditar_Click_1(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
+            if (idPacienteEdicion <= 0)
             {
                 MessageBox.Show("Primero busque un paciente para editar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             MessageBox.Show("Modifique los datos y presione GUARDAR", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        
         }
 
         private void btnEliminar_Click_1(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
+
+            if (idPacienteEdicion <= 0)
             {
                 MessageBox.Show("Busque un paciente primero", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            foreach (Paciente p in listaPacientes)
+
+            DialogResult confirmar = MessageBox.Show("¿Eliminar este paciente?", "Confirmar",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmar != DialogResult.Yes) return;
+
+            try
             {
-                if (p.ID == txtID.Text)
+                // CORRECCIÓN: Se cambió 'pacientes' por 'paciente'
+                using (var conn = new MySqlConnection(ConnectionString))
+                using (var cmd = new MySqlCommand("DELETE FROM paciente WHERE id_paciente = @id", conn))
                 {
-                    DialogResult confirmar = MessageBox.Show("¿Eliminar este paciente?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (confirmar == DialogResult.Yes)
-                    {
-                        listaPacientes.Remove(p);
-                        MessageBox.Show("Paciente eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LimpiarCampos();
-                    }
-                    return;
+                    cmd.Parameters.AddWithValue("@id", idPacienteEdicion);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
+
+                MessageBox.Show("Paciente eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarCampos();
+            }
+            catch (MySqlException ex) when (ex.Number == 1451)
+            {
+                MessageBox.Show("No se puede eliminar: el paciente tiene registros asociados (por ejemplo, citas).",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error de base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -217,7 +259,7 @@ namespace Menu_Principall
             LimpiarCampos();
         }
 
-        private void btnVolver_Click_1(object sender, EventArgs e)
+        private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Close();
         }
