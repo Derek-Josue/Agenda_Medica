@@ -1,30 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
+using Agenda_Medica.BL;
+using Agenda_Medica.Entities;
 
-namespace Menu_Principall
+namespace Agenda_Medica.UI
 {
     public partial class FormPacientes : Form
     {
-        private List<Paciente> listaPacientes = new List<Paciente>();
-        private int indiceEdicion = -1;
+        
+        private readonly PacienteBL _bl = new PacienteBL();
+        private int _idEdicion = 0;   // 0 = paciente nuevo
 
         public FormPacientes()
         {
             InitializeComponent();
         }
 
-        public class Paciente
+        private void FormPacientes_Load(object sender, EventArgs e)
         {
-            public string ID { get; set; }
-            public string Nombre { get; set; }
-            public string Apellido { get; set; }
-            public string Telefono { get; set; }
-            public string Direccion { get; set; }
+            if (cmbGenero.Items.Count == 0)
+                cmbGenero.Items.AddRange(new object[] { "Masculino", "Femenino", "Otro" });
+            if (cmbTipoSangre.Items.Count == 0)
+                cmbTipoSangre.Items.AddRange(new object[] { "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" });
+
+            cmbGenero.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTipoSangre.DropDownStyle = ComboBoxStyle.DropDownList;
+            dtpFechaNacimiento.MaxDate = DateTime.Today;
+        }
+
+        // Utilidades de UI 
+        private Paciente LeerFormulario()
+        {
+            return new Paciente
+            {
+                Id = _idEdicion,
+                Cedula = txtID.Text,                       // txtID = cédula
+                Nombre = txtNombre.Text,
+                Apellidos = txtApellido.Text,
+                FechaNacimiento = dtpFechaNacimiento.Value,
+                Genero = cmbGenero.SelectedItem == null ? "" : cmbGenero.SelectedItem.ToString(),
+                Telefono = txtTelefono.Text,
+                Direccion = txtDireccion.Text,
+                TipoSangre = cmbTipoSangre.SelectedItem == null ? "" : cmbTipoSangre.SelectedItem.ToString()
+            };
+        }
+
+        private void MostrarPaciente(Paciente p)
+        {
+            _idEdicion = p.Id;
+            txtID.Text = p.Cedula;
+            txtNombre.Text = p.Nombre;
+            txtApellido.Text = p.Apellidos;
+            dtpFechaNacimiento.Value = p.FechaNacimiento > dtpFechaNacimiento.MaxDate
+                ? dtpFechaNacimiento.MaxDate : p.FechaNacimiento;
+            cmbGenero.SelectedIndex = cmbGenero.FindStringExact(p.Genero);
+            txtTelefono.Text = p.Telefono;
+            txtDireccion.Text = p.Direccion;
+            cmbTipoSangre.SelectedIndex = cmbTipoSangre.FindStringExact(p.TipoSangre);
+            txtID.Enabled = false;     // la cédula no se cambia mientras se edita
         }
 
         private void LimpiarCampos()
@@ -34,116 +67,66 @@ namespace Menu_Principall
             txtApellido.Clear();
             txtTelefono.Clear();
             txtDireccion.Clear();
-            indiceEdicion = -1;
+            cmbGenero.SelectedIndex = -1;
+            cmbTipoSangre.SelectedIndex = -1;
+            dtpFechaNacimiento.Value = DateTime.Today;
+            _idEdicion = 0;
             txtID.Enabled = true;
+            txtID.Focus();
         }
 
-        private bool ValidarCampos()
+        private void Mostrar(ResultadoBL r)
         {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
-            {
-                MessageBox.Show("Escriba el ID del paciente", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtID.Focus();
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(txtNombre.Text))
-            {
-                MessageBox.Show("Escriba el nombre", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtNombre.Focus();
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(txtApellido.Text))
-            {
-                MessageBox.Show("Escriba el apellido", "Faltan datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtApellido.Focus();
-                return false;
-            }
-            return true;
+            MessageBox.Show(r.Mensaje,
+                r.Exito ? "Éxito" : "Aviso",
+                MessageBoxButtons.OK,
+                r.Exito ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
         }
 
+        // Eventos de los botones 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (!ValidarCampos()) return;
-
-            if (indiceEdicion >= 0)
-            {
-                listaPacientes[indiceEdicion].ID = txtID.Text;
-                listaPacientes[indiceEdicion].Nombre = txtNombre.Text;
-                listaPacientes[indiceEdicion].Apellido = txtApellido.Text;
-                listaPacientes[indiceEdicion].Telefono = txtTelefono.Text;
-                listaPacientes[indiceEdicion].Direccion = txtDireccion.Text;
-                MessageBox.Show("Paciente actualizado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                Paciente nuevo = new Paciente
-                {
-                    ID = txtID.Text,
-                    Nombre = txtNombre.Text,
-                    Apellido = txtApellido.Text,
-                    Telefono = txtTelefono.Text,
-                    Direccion = txtDireccion.Text
-                };
-                listaPacientes.Add(nuevo);
-                MessageBox.Show("Paciente guardado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            LimpiarCampos();
+            ResultadoBL r = _bl.Guardar(LeerFormulario());
+            Mostrar(r);
+            if (r.Exito) LimpiarCampos();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
-            {
-                MessageBox.Show("Escriba un ID para buscar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            foreach (Paciente p in listaPacientes)
-            {
-                if (p.ID == txtID.Text)
-                {
-                    txtNombre.Text = p.Nombre;
-                    txtApellido.Text = p.Apellido;
-                    txtTelefono.Text = p.Telefono;
-                    txtDireccion.Text = p.Direccion;
-                    indiceEdicion = listaPacientes.IndexOf(p);
-                    txtID.Enabled = false;
-                    return;
-                }
-            }
-            MessageBox.Show("Paciente no encontrado", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Paciente p;
+            ResultadoBL r = _bl.BuscarPorCedula(txtID.Text, out p);
+            if (r.Exito) MostrarPaciente(p);
+            else Mostrar(r);
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
+            if (_idEdicion <= 0)
             {
-                MessageBox.Show("Primero busque un paciente para editar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Primero busque un paciente para editar", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            MessageBox.Show("Modifique los datos y presione GUARDAR", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Modifique los datos y presione GUARDAR", "Editar",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
+            if (_idEdicion <= 0)
             {
-                MessageBox.Show("Busque un paciente primero", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Busque un paciente primero", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            foreach (Paciente p in listaPacientes)
-            {
-                if (p.ID == txtID.Text)
-                {
-                    DialogResult confirmar = MessageBox.Show("¿Eliminar este paciente?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (confirmar == DialogResult.Yes)
-                    {
-                        listaPacientes.Remove(p);
-                        MessageBox.Show("Paciente eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LimpiarCampos();
-                    }
-                    return;
-                }
-            }
+
+            DialogResult confirmar = MessageBox.Show("¿Eliminar este paciente?", "Confirmar",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmar != DialogResult.Yes) return;
+
+            ResultadoBL r = _bl.Eliminar(_idEdicion);
+            Mostrar(r);
+            if (r.Exito) LimpiarCampos();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -152,72 +135,6 @@ namespace Menu_Principall
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnBusacar_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
-            {
-                MessageBox.Show("Escriba un ID para buscar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            foreach (Paciente p in listaPacientes)
-            {
-                if (p.ID == txtID.Text)
-                {
-                    txtNombre.Text = p.Nombre;
-                    txtApellido.Text = p.Apellido;
-                    txtTelefono.Text = p.Telefono;
-                    txtDireccion.Text = p.Direccion;
-                    indiceEdicion = listaPacientes.IndexOf(p);
-                    txtID.Enabled = false;
-                    return;
-                }
-            }
-            MessageBox.Show("Paciente no encontrado", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnEditar_Click_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
-            {
-                MessageBox.Show("Primero busque un paciente para editar", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            MessageBox.Show("Modifique los datos y presione GUARDAR", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnEliminar_Click_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtID.Text))
-            {
-                MessageBox.Show("Busque un paciente primero", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            foreach (Paciente p in listaPacientes)
-            {
-                if (p.ID == txtID.Text)
-                {
-                    DialogResult confirmar = MessageBox.Show("¿Eliminar este paciente?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (confirmar == DialogResult.Yes)
-                    {
-                        listaPacientes.Remove(p);
-                        MessageBox.Show("Paciente eliminado", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LimpiarCampos();
-                    }
-                    return;
-                }
-            }
-        }
-
-        private void btnLimpiar_Click_1(object sender, EventArgs e)
-        {
-            LimpiarCampos();
-        }
-
-        private void btnVolver_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }

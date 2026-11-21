@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CitaBL.cs" />
+    <Compile Include="EspecialidadBL.cs" />
+    <Compile Include="HorarioMedico.cs" />
     <Compile Include="MedicoBL.cs" />
     <Compile Include="PacienteBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

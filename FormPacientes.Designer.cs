@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-namespace Menu_Principall
+namespace Agenda_Medica.UI
 {
     partial class FormPacientes
     {
@@ -31,189 +31,283 @@ namespace Menu_Principall
         /// </summary>
         private void InitializeComponent()
         {
-            lblID = new Label();
-            txtID = new TextBox();
-            lblNombre = new Label();
-            txtNombre = new TextBox();
-            lblApellido = new Label();
-            txtApellido = new TextBox();
-            label1 = new Label();
-            txtTelefono = new TextBox();
-            lblDireccion = new Label();
-            txtDireccion = new TextBox();
-            btnGuardar = new Button();
-            btnBusacar = new Button();
-            btnEditar = new Button();
-            btnEliminar = new Button();
-            btnLimpiar = new Button();
-            btnVolver = new Button();
-            SuspendLayout();
+            this.lblID = new System.Windows.Forms.Label();
+            this.txtID = new System.Windows.Forms.TextBox();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.lblApellido = new System.Windows.Forms.Label();
+            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.lblTelefono = new System.Windows.Forms.Label();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.lblDireccion = new System.Windows.Forms.Label();
+            this.txtDireccion = new System.Windows.Forms.TextBox();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnBusacar = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.cmbGenero = new System.Windows.Forms.ComboBox();
+            this.cmbTipoSangre = new System.Windows.Forms.ComboBox();
+            this.lblFecha = new System.Windows.Forms.Label();
+            this.lblGenero = new System.Windows.Forms.Label();
+            this.lblSangre = new System.Windows.Forms.Label();
+            this.SuspendLayout();
             // 
             // lblID
             // 
-            lblID.AutoSize = true;
-            lblID.Location = new Point(12, 20);
-            lblID.Name = "lblID";
-            lblID.Size = new Size(27, 20);
-            lblID.TabIndex = 0;
-            lblID.Text = "ID:";
+            this.lblID.AutoSize = true;
+            this.lblID.Location = new System.Drawing.Point(12, 16);
+            this.lblID.Name = "lblID";
+            this.lblID.Size = new System.Drawing.Size(23, 16);
+            this.lblID.TabIndex = 0;
+            this.lblID.Text = "ID:";
             // 
             // txtID
             // 
-            txtID.Location = new Point(12, 43);
-            txtID.Name = "txtID";
-            txtID.Size = new Size(125, 27);
-            txtID.TabIndex = 1;
+            this.txtID.Location = new System.Drawing.Point(12, 34);
+            this.txtID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(125, 22);
+            this.txtID.TabIndex = 1;
             // 
             // lblNombre
             // 
-            lblNombre.AutoSize = true;
-            lblNombre.Location = new Point(12, 73);
-            lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(67, 20);
-            lblNombre.TabIndex = 2;
-            lblNombre.Text = "Nombre:";
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Location = new System.Drawing.Point(12, 58);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(59, 16);
+            this.lblNombre.TabIndex = 2;
+            this.lblNombre.Text = "Nombre:";
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(12, 96);
-            txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(125, 27);
-            txtNombre.TabIndex = 3;
+            this.txtNombre.Location = new System.Drawing.Point(12, 77);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(125, 22);
+            this.txtNombre.TabIndex = 3;
             // 
             // lblApellido
             // 
-            lblApellido.AutoSize = true;
-            lblApellido.Location = new Point(12, 126);
-            lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(69, 20);
-            lblApellido.TabIndex = 4;
-            lblApellido.Text = "Apellido:";
+            this.lblApellido.AutoSize = true;
+            this.lblApellido.Location = new System.Drawing.Point(12, 101);
+            this.lblApellido.Name = "lblApellido";
+            this.lblApellido.Size = new System.Drawing.Size(60, 16);
+            this.lblApellido.TabIndex = 4;
+            this.lblApellido.Text = "Apellido:";
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(12, 149);
-            txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(125, 27);
-            txtApellido.TabIndex = 5;
+            this.txtApellido.Location = new System.Drawing.Point(12, 119);
+            this.txtApellido.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(125, 22);
+            this.txtApellido.TabIndex = 5;
             // 
-            // label1
+            // lblTelefono
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 179);
-            label1.Name = "label1";
-            label1.Size = new Size(70, 20);
-            label1.TabIndex = 6;
-            label1.Text = "Telefono:";
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.Location = new System.Drawing.Point(12, 143);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(64, 16);
+            this.lblTelefono.TabIndex = 6;
+            this.lblTelefono.Text = "Telefono:";
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(12, 202);
-            txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(125, 27);
-            txtTelefono.TabIndex = 7;
+            this.txtTelefono.Location = new System.Drawing.Point(12, 162);
+            this.txtTelefono.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(125, 22);
+            this.txtTelefono.TabIndex = 7;
             // 
             // lblDireccion
             // 
-            lblDireccion.AutoSize = true;
-            lblDireccion.Location = new Point(12, 232);
-            lblDireccion.Name = "lblDireccion";
-            lblDireccion.Size = new Size(75, 20);
-            lblDireccion.TabIndex = 8;
-            lblDireccion.Text = "Direccion:";
+            this.lblDireccion.AutoSize = true;
+            this.lblDireccion.Location = new System.Drawing.Point(12, 186);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(67, 16);
+            this.lblDireccion.TabIndex = 8;
+            this.lblDireccion.Text = "Direccion:";
             // 
             // txtDireccion
             // 
-            txtDireccion.Location = new Point(12, 255);
-            txtDireccion.Name = "txtDireccion";
-            txtDireccion.Size = new Size(125, 27);
-            txtDireccion.TabIndex = 9;
+            this.txtDireccion.Location = new System.Drawing.Point(12, 204);
+            this.txtDireccion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtDireccion.Name = "txtDireccion";
+            this.txtDireccion.Size = new System.Drawing.Size(125, 22);
+            this.txtDireccion.TabIndex = 9;
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(174, 16);
-            btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(94, 29);
-            btnGuardar.TabIndex = 10;
-            btnGuardar.Text = "Guardar";
-            btnGuardar.UseVisualStyleBackColor = true;
-            btnGuardar.Click += btnGuardar_Click;
+            this.btnGuardar.Location = new System.Drawing.Point(174, 13);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(94, 23);
+            this.btnGuardar.TabIndex = 10;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnBusacar
             // 
-            btnBusacar.Location = new Point(274, 16);
-            btnBusacar.Name = "btnBusacar";
-            btnBusacar.Size = new Size(94, 29);
-            btnBusacar.TabIndex = 11;
-            btnBusacar.Text = "Buscar";
-            btnBusacar.UseVisualStyleBackColor = true;
-            btnBusacar.Click += btnBusacar_Click;
+            this.btnBusacar.Location = new System.Drawing.Point(274, 13);
+            this.btnBusacar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBusacar.Name = "btnBusacar";
+            this.btnBusacar.Size = new System.Drawing.Size(94, 23);
+            this.btnBusacar.TabIndex = 11;
+            this.btnBusacar.Text = "Buscar";
+            this.btnBusacar.UseVisualStyleBackColor = true;
+            this.btnBusacar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnEditar
             // 
-            btnEditar.Location = new Point(374, 16);
-            btnEditar.Name = "btnEditar";
-            btnEditar.Size = new Size(94, 29);
-            btnEditar.TabIndex = 12;
-            btnEditar.Text = "Editar";
-            btnEditar.UseVisualStyleBackColor = true;
-            btnEditar.Click += btnEditar_Click_1;
+            this.btnEditar.Location = new System.Drawing.Point(374, 13);
+            this.btnEditar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(94, 23);
+            this.btnEditar.TabIndex = 12;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(474, 16);
-            btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(94, 29);
-            btnEliminar.TabIndex = 13;
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.UseVisualStyleBackColor = true;
-            btnEliminar.Click += btnEliminar_Click_1;
+            this.btnEliminar.Location = new System.Drawing.Point(474, 13);
+            this.btnEliminar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(94, 23);
+            this.btnEliminar.TabIndex = 13;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(574, 16);
-            btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(94, 29);
-            btnLimpiar.TabIndex = 14;
-            btnLimpiar.Text = "Limpiar";
-            btnLimpiar.UseVisualStyleBackColor = true;
-            btnLimpiar.Click += btnLimpiar_Click_1;
+            this.btnLimpiar.Location = new System.Drawing.Point(574, 13);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(94, 23);
+            this.btnLimpiar.TabIndex = 14;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnVolver
             // 
-            btnVolver.Location = new Point(674, 16);
-            btnVolver.Name = "btnVolver";
-            btnVolver.Size = new Size(94, 29);
-            btnVolver.TabIndex = 15;
-            btnVolver.Text = "Volver";
-            btnVolver.UseVisualStyleBackColor = true;
-            btnVolver.Click += btnVolver_Click_1;
+            this.btnVolver.Location = new System.Drawing.Point(674, 13);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(94, 23);
+            this.btnVolver.TabIndex = 15;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
+            // dtpFechaNacimiento
+            // 
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(15, 290);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(200, 22);
+            this.dtpFechaNacimiento.TabIndex = 16;
+            // 
+            // cmbGenero
+            // 
+            this.cmbGenero.FormattingEnabled = true;
+            this.cmbGenero.Items.AddRange(new object[] {
+            "Masculino",
+            "Femenino"});
+            this.cmbGenero.Location = new System.Drawing.Point(274, 288);
+            this.cmbGenero.Name = "cmbGenero";
+            this.cmbGenero.Size = new System.Drawing.Size(121, 24);
+            this.cmbGenero.TabIndex = 17;
+            // 
+            // cmbTipoSangre
+            // 
+            this.cmbTipoSangre.FormattingEnabled = true;
+            this.cmbTipoSangre.Items.AddRange(new object[] {
+            "A+",
+            "   ",
+            "A-",
+            "   ",
+            "B+",
+            "  ",
+            "B-",
+            "   ",
+            "AB+",
+            "  ",
+            "AB-",
+            "   ",
+            "O+",
+            "  ",
+            "O-"});
+            this.cmbTipoSangre.Location = new System.Drawing.Point(438, 290);
+            this.cmbTipoSangre.Name = "cmbTipoSangre";
+            this.cmbTipoSangre.Size = new System.Drawing.Size(121, 24);
+            this.cmbTipoSangre.TabIndex = 18;
+            // 
+            // lblFecha
+            // 
+            this.lblFecha.AutoSize = true;
+            this.lblFecha.Location = new System.Drawing.Point(21, 271);
+            this.lblFecha.Name = "lblFecha";
+            this.lblFecha.Size = new System.Drawing.Size(192, 16);
+            this.lblFecha.TabIndex = 19;
+            this.lblFecha.Text = "Ingrese su fecha de nacimiento";
+            // 
+            // lblGenero
+            // 
+            this.lblGenero.AutoSize = true;
+            this.lblGenero.Location = new System.Drawing.Point(316, 271);
+            this.lblGenero.Name = "lblGenero";
+            this.lblGenero.Size = new System.Drawing.Size(52, 16);
+            this.lblGenero.TabIndex = 20;
+            this.lblGenero.Text = "Genero";
+            // 
+            // lblSangre
+            // 
+            this.lblSangre.AutoSize = true;
+            this.lblSangre.Location = new System.Drawing.Point(449, 271);
+            this.lblSangre.Name = "lblSangre";
+            this.lblSangre.Size = new System.Drawing.Size(101, 16);
+            this.lblSangre.TabIndex = 21;
+            this.lblSangre.Text = "Tipo de Sangre";
             // 
             // FormPacientes
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(btnVolver);
-            Controls.Add(btnLimpiar);
-            Controls.Add(btnEliminar);
-            Controls.Add(btnEditar);
-            Controls.Add(btnBusacar);
-            Controls.Add(btnGuardar);
-            Controls.Add(txtDireccion);
-            Controls.Add(lblDireccion);
-            Controls.Add(txtTelefono);
-            Controls.Add(label1);
-            Controls.Add(txtApellido);
-            Controls.Add(lblApellido);
-            Controls.Add(txtNombre);
-            Controls.Add(lblNombre);
-            Controls.Add(txtID);
-            Controls.Add(lblID);
-            Name = "FormPacientes";
-            Text = "FormPacientes";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.lblSangre);
+            this.Controls.Add(this.lblGenero);
+            this.Controls.Add(this.lblFecha);
+            this.Controls.Add(this.cmbTipoSangre);
+            this.Controls.Add(this.cmbGenero);
+            this.Controls.Add(this.dtpFechaNacimiento);
+            this.Controls.Add(this.btnVolver);
+            this.Controls.Add(this.btnLimpiar);
+            this.Controls.Add(this.btnEliminar);
+            this.Controls.Add(this.btnEditar);
+            this.Controls.Add(this.btnBusacar);
+            this.Controls.Add(this.btnGuardar);
+            this.Controls.Add(this.txtDireccion);
+            this.Controls.Add(this.lblDireccion);
+            this.Controls.Add(this.txtTelefono);
+            this.Controls.Add(this.lblTelefono);
+            this.Controls.Add(this.txtApellido);
+            this.Controls.Add(this.lblApellido);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.lblNombre);
+            this.Controls.Add(this.txtID);
+            this.Controls.Add(this.lblID);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "FormPacientes";
+            this.Text = "FormPacientes";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
@@ -224,7 +318,7 @@ namespace Menu_Principall
         private TextBox txtNombre;
         private Label lblApellido;
         private TextBox txtApellido;
-        private Label label1;
+        private Label lblTelefono;
         private TextBox txtTelefono;
         private Label lblDireccion;
         private TextBox txtDireccion;
@@ -234,5 +328,11 @@ namespace Menu_Principall
         private Button btnEliminar;
         private Button btnLimpiar;
         private Button btnVolver;
+        private DateTimePicker dtpFechaNacimiento;
+        private ComboBox cmbGenero;
+        private ComboBox cmbTipoSangre;
+        private Label lblFecha;
+        private Label lblGenero;
+        private Label lblSangre;
     }
 }

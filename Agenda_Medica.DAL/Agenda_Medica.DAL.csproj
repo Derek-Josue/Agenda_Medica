@@ -87,7 +87,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CitaDal.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="EspecialidadDAL.cs" />
+    <Compile Include="MedicoDAL.cs" />
     <Compile Include="PacienteDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
