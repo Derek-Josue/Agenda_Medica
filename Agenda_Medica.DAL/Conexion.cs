@@ -10,7 +10,7 @@ namespace Agenda_Medica.DAL
             "Port=3306;" +
             "Database=agenda_medica;" +
             "Uid=root;" +
-            "Pwd=tNx92mlAw.;";
+            "Pwd=A123456789;";
 
         public static MySqlConnection ObtenerConexion()
         {
