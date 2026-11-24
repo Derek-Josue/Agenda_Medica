@@ -135,7 +135,7 @@ namespace Agenda_Medica.UI
 
         //  Eventos 
         // Al hacer clic en una fila, sus datos pasan al formulario para editar
-        private void dgvMedicos_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvMedicos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
@@ -157,8 +157,8 @@ namespace Agenda_Medica.UI
                 clbEspecialidades.SetItemChecked(i, m.Especialidades.Any(x => x.Id == esp.Id));
             }
         }
-
-        private void btnGuardar_Click(object sender, EventArgs e)
+        
+        private void btnGuardar_Click_1(object sender, EventArgs e)
         {
             ResultadoBL r = _blMedico.Guardar(LeerFormulario());
             Mostrar(r);
@@ -168,8 +168,7 @@ namespace Agenda_Medica.UI
                 CargarGrilla();
             }
         }
-
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private void btnEliminar_Click_1(object sender, EventArgs e)
         {
             if (_idEdicion <= 0)
             {
@@ -190,20 +189,17 @@ namespace Agenda_Medica.UI
                 CargarGrilla();
             }
         }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void btnLimpiar_Click_1(object sender, EventArgs e)
         {
             LimpiarCampos();
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void btnVolver_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        
     }
 }

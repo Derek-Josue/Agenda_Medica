@@ -52,6 +52,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCitas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,7 +98,7 @@
             // 
             // dtpHora
             // 
-            this.dtpHora.Location = new System.Drawing.Point(348, 141);
+            this.dtpHora.Location = new System.Drawing.Point(348, 152);
             this.dtpHora.Name = "dtpHora";
             this.dtpHora.Size = new System.Drawing.Size(200, 22);
             this.dtpHora.TabIndex = 5;
@@ -185,7 +187,7 @@
             // chkFiltrarFecha
             // 
             this.chkFiltrarFecha.AutoSize = true;
-            this.chkFiltrarFecha.Location = new System.Drawing.Point(354, 173);
+            this.chkFiltrarFecha.Location = new System.Drawing.Point(348, 222);
             this.chkFiltrarFecha.Name = "chkFiltrarFecha";
             this.chkFiltrarFecha.Size = new System.Drawing.Size(103, 20);
             this.chkFiltrarFecha.TabIndex = 14;
@@ -194,7 +196,7 @@
             // 
             // dtpFiltroFecha
             // 
-            this.dtpFiltroFecha.Location = new System.Drawing.Point(348, 231);
+            this.dtpFiltroFecha.Location = new System.Drawing.Point(348, 250);
             this.dtpFiltroFecha.Name = "dtpFiltroFecha";
             this.dtpFiltroFecha.Size = new System.Drawing.Size(200, 22);
             this.dtpFiltroFecha.TabIndex = 15;
@@ -268,15 +270,35 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(39, 226);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 16);
+            this.label5.Size = new System.Drawing.Size(110, 16);
             this.label5.TabIndex = 23;
-            this.label5.Text = "Filtro";
+            this.label5.Text = "Filtro de Medicos";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(356, 67);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(182, 16);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "Seleccione la fecha de la cita";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(356, 133);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(179, 16);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Seleccione la Hora de la cita";
             // 
             // FormCitas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 450);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -336,5 +358,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
