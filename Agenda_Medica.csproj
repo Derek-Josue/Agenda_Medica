@@ -112,6 +112,15 @@
     <Compile Include="FormEspecialidades.Designer.cs">
       <DependentUpon>FormEspecialidades.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormHistorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMedicos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +149,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormEspecialidades.resx">
       <DependentUpon>FormEspecialidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHistorial.resx">
+      <DependentUpon>FormHistorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMedicos.resx">
       <DependentUpon>FormMedicos.cs</DependentUpon>

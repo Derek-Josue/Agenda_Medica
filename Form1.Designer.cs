@@ -34,13 +34,16 @@ namespace Agenda_Medica.UI
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnPacientes = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnMedicos = new System.Windows.Forms.Button();
+            this.btnEspecialidades = new System.Windows.Forms.Button();
+            this.btnCitas = new System.Windows.Forms.Button();
+            this.btnHistorial = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Location = new System.Drawing.Point(25, 15);
+            this.lblTitulo.Location = new System.Drawing.Point(22, 9);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(211, 16);
             this.lblTitulo.TabIndex = 0;
@@ -59,7 +62,7 @@ namespace Agenda_Medica.UI
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(25, 76);
+            this.btnSalir.Location = new System.Drawing.Point(25, 219);
             this.btnSalir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(94, 23);
@@ -68,27 +71,62 @@ namespace Agenda_Medica.UI
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
-            // button1
+            // btnMedicos
             // 
-            this.button1.Location = new System.Drawing.Point(370, 129);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 33);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnMedicos.Location = new System.Drawing.Point(25, 76);
+            this.btnMedicos.Name = "btnMedicos";
+            this.btnMedicos.Size = new System.Drawing.Size(78, 33);
+            this.btnMedicos.TabIndex = 3;
+            this.btnMedicos.Text = "Medicos";
+            this.btnMedicos.UseVisualStyleBackColor = true;
+            this.btnMedicos.Click += new System.EventHandler(this.btnMedicos_Click);
+            // 
+            // btnEspecialidades
+            // 
+            this.btnEspecialidades.Location = new System.Drawing.Point(25, 115);
+            this.btnEspecialidades.Name = "btnEspecialidades";
+            this.btnEspecialidades.Size = new System.Drawing.Size(120, 30);
+            this.btnEspecialidades.TabIndex = 4;
+            this.btnEspecialidades.Text = "Especialidades ";
+            this.btnEspecialidades.UseVisualStyleBackColor = true;
+            this.btnEspecialidades.Click += new System.EventHandler(this.btnEspecialidades_Click);
+            // 
+            // btnCitas
+            // 
+            this.btnCitas.Location = new System.Drawing.Point(25, 151);
+            this.btnCitas.Name = "btnCitas";
+            this.btnCitas.Size = new System.Drawing.Size(78, 29);
+            this.btnCitas.TabIndex = 5;
+            this.btnCitas.Text = "Citas";
+            this.btnCitas.UseVisualStyleBackColor = true;
+            this.btnCitas.Click += new System.EventHandler(this.btnCitas_Click);
+            // 
+            // btnHistorial
+            // 
+            this.btnHistorial.Location = new System.Drawing.Point(28, 186);
+            this.btnHistorial.Name = "btnHistorial";
+            this.btnHistorial.Size = new System.Drawing.Size(75, 23);
+            this.btnHistorial.TabIndex = 6;
+            this.btnHistorial.Text = "Historial";
+            this.btnHistorial.UseVisualStyleBackColor = true;
+            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 360);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnHistorial);
+            this.Controls.Add(this.btnCitas);
+            this.Controls.Add(this.btnEspecialidades);
+            this.Controls.Add(this.btnMedicos);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnPacientes);
             this.Controls.Add(this.lblTitulo);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,6 +137,9 @@ namespace Agenda_Medica.UI
         private Label lblTitulo;
         private Button btnPacientes;
         private Button btnSalir;
-        private Button button1;
+        private Button btnMedicos;
+        private Button btnEspecialidades;
+        private Button btnCitas;
+        private Button btnHistorial;
     }
 }

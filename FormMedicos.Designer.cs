@@ -84,7 +84,6 @@
             this.txtHorario.Name = "txtHorario";
             this.txtHorario.Size = new System.Drawing.Size(100, 22);
             this.txtHorario.TabIndex = 5;
-
             // 
             // clbEspecialidades
             // 
@@ -139,6 +138,7 @@
             this.btnVolver.TabIndex = 11;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click_1);
             // 
             // FormMedicos
             // 

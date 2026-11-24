@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Agenda_Medica.DAL;
 using Agenda_Medica.Entities;
 
@@ -16,6 +17,22 @@ namespace Agenda_Medica.BL
             {
                 lista = _dal.Listar(fecha, idMedico, idPaciente);
                 return ResultadoBL.Ok("Citas cargadas.");
+            }
+            catch (Exception ex)
+            {
+                return ResultadoBL.Error(ex.Message);
+            }
+        }
+        // Historial de citas de un paciente (más recientes primero)
+        public ResultadoBL HistorialPaciente(string identificacion, out List<Cita> lista)
+        {
+            lista = new List<Cita>();
+            if (string.IsNullOrWhiteSpace(identificacion))
+                return ResultadoBL.Error("Debe indicar el ID del paciente.");
+            try
+            {
+                lista = _dal.ListarPorIdentificacion(identificacion.Trim());
+                return ResultadoBL.Ok("Historial cargado.");
             }
             catch (Exception ex)
             {

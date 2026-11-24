@@ -52,6 +52,24 @@ namespace Agenda_Medica.DAL
             }
         }
 
+        public List<Cita> ListarPorIdentificacion(string identificacion)
+        {
+            string sql = SqlBase + " WHERE p.cedula = @ced ORDER BY c.fecha_hora_inicio DESC;";
+            try
+            {
+                using (MySqlConnection conexion = Conexion.ObtenerConexion())
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@ced", identificacion);
+                    return LeerCitas(cmd);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener el historial: " + ex.Message);
+            }
+        }
+
         // Devuelve la cita, o null si no existe
         public Cita ObtenerPorId(int idCita)
         {

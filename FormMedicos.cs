@@ -200,5 +200,10 @@ namespace Agenda_Medica.UI
         {
             this.Close();
         }
+
+        private void btnVolver_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

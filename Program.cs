@@ -12,9 +12,13 @@ namespace Menu_Principall
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-            Application.Run(new FormPacientes());
-            //Application.Run(new FormPrueba()); // Cambia a FormPrueba para probar la conexión
+
+            FormLogin login = new FormLogin();
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new Form1());
+            }
+           
         }
     }
 }

@@ -180,6 +180,7 @@
             this.dgvCitas.RowTemplate.Height = 24;
             this.dgvCitas.Size = new System.Drawing.Size(477, 274);
             this.dgvCitas.TabIndex = 13;
+            this.dgvCitas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCitas_CellClick);
             // 
             // chkFiltrarFecha
             // 
