@@ -1,7 +1,7 @@
-using Agenda_Medica.UI;
+
 using System;
 using System.Windows.Forms;
-namespace Menu_Principall
+namespace Agenda_Medica.UI
 {
     public partial class Form1 : Form
     {

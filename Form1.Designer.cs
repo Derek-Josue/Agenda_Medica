@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using System;
 using System.Drawing;
-namespace Menu_Principall
+namespace Agenda_Medica.UI
 {
     partial class Form1
     {
@@ -34,6 +34,7 @@ namespace Menu_Principall
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnPacientes = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -67,11 +68,21 @@ namespace Menu_Principall
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(370, 129);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(78, 33);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 360);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnPacientes);
             this.Controls.Add(this.lblTitulo);
@@ -88,5 +99,6 @@ namespace Menu_Principall
         private Label lblTitulo;
         private Button btnPacientes;
         private Button btnSalir;
+        private Button button1;
     }
 }
