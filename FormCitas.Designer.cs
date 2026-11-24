@@ -54,6 +54,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnReprogramar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCitas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -165,9 +166,9 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(546, 347);
+            this.btnVolver.Location = new System.Drawing.Point(540, 347);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(81, 23);
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 12;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -211,7 +212,7 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(311, 376);
+            this.btnFiltrar.Location = new System.Drawing.Point(540, 376);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
             this.btnFiltrar.TabIndex = 17;
@@ -292,11 +293,22 @@
             this.label7.TabIndex = 25;
             this.label7.Text = "Seleccione la Hora de la cita";
             // 
+            // btnReprogramar
+            // 
+            this.btnReprogramar.Location = new System.Drawing.Point(286, 376);
+            this.btnReprogramar.Name = "btnReprogramar";
+            this.btnReprogramar.Size = new System.Drawing.Size(100, 23);
+            this.btnReprogramar.TabIndex = 26;
+            this.btnReprogramar.Text = "Reprogramar ";
+            this.btnReprogramar.UseVisualStyleBackColor = true;
+            this.btnReprogramar.Click += new System.EventHandler(this.btnReprogramar_Click);
+            // 
             // FormCitas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 450);
+            this.Controls.Add(this.btnReprogramar);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -360,5 +372,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnReprogramar;
     }
 }

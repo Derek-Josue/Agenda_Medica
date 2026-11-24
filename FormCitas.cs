@@ -240,7 +240,35 @@ namespace Agenda_Medica.UI
             CambiarEstado(EstadosCita.NoAsistio);
         }
 
+        private void btnReprogramar_Click(object sender, EventArgs e)
+        {
 
+            if (_citaActual == null)
+            {
+                MessageBox.Show("Seleccione una cita de la lista primero", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DialogResult confirmar = MessageBox.Show(
+                "¿Reprogramar la cita con la nueva fecha, hora y duración seleccionadas?", "Confirmar",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmar != DialogResult.Yes) return;
+
+            Cita citaReprogramada = LeerFormulario();
+            citaReprogramada.Id = _citaActual.Id;
+
+            // Si tu CitaBL tiene un método específico (ej. Reprogramar), úsalo aquí;
+            // de lo contrario, Guardar con el Id existente actualiza la cita.
+            ResultadoBL r = _blCita.Guardar(citaReprogramada);
+            Mostrar(r);
+
+            if (r.Exito)
+            {
+                LimpiarCampos();
+                CargarGrilla();
+            }
+        }
         private void btnCancelarCita_Click_1(object sender, EventArgs e)
         {
             CambiarEstado(EstadosCita.Cancelada);
@@ -269,5 +297,8 @@ namespace Agenda_Medica.UI
         {
         this.Close();
         }
+
+       
     }
+    
 }
